@@ -1,0 +1,157 @@
+
+
+html{
+	font-family: Arial;
+
+}
+
+input[type="date"] {
+	min-height: 2.5rem;
+}
+
+#cuerpo{
+    filter:alpha(opacity=25);
+    -moz-opacity:.25;
+    opacity:.25;
+
+    background-image: url("../img/logoGeneral.jpg"),url("../img/logoBlanco.jpg");
+    background-repeat: repeat, repeat;
+}
+
+#saludoUsuario{
+    border-bottom: 2px solid #CE2727;
+    background-color: #fff;
+}
+
+#saludo{
+	text-align: center;
+	border: 2px solid #CE2727;
+	
+	width: auto;
+	height: auto;
+}
+
+#logo{
+
+	
+	padding: 15px 32px;
+	
+
+}
+
+#cierre{
+
+    
+    padding: 15px 32px;
+    
+
+}
+
+
+
+
+
+#pìctureSaludo{
+
+
+	
+}
+
+nav{
+
+    border-bottom: 3px solid #f2f2f2;
+
+}
+
+button{
+    background-color: #CE2727; 
+    
+    border: none;
+    color: white;
+    
+    margin: 10px;
+    padding: 15px 32px;
+    
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    
+}
+
+
+
+
+#finger{
+	background-color: white; 
+	color: black;
+	
+    width: auto;
+    font-size: 10px;
+    text-align: center;
+    
+}
+
+h1, h3, h5, h4 {
+
+	color: #CE2727;
+}
+
+.suggest-element {
+    margin-left:5px;
+    margin-top:5px;
+    width:250px;
+    cursor:pointer;
+}
+#suggestions {
+    width:150px;
+    height:150px;
+   /* overflow: auto;*/
+}
+
+#resultadoEmpleado{
+
+    width:auto;
+    height:auto;
+    border: 2px solid #dcdcdc;
+
+}
+
+#resultadoOficina{
+
+    width:auto;
+    height:auto;
+    border: 2px solid #dcdcdc;
+
+}
+
+#resultadoCMTerritorio{
+
+    width:auto;
+    height:auto;
+    border: 2px solid #dcdcdc;
+
+}
+
+#datosRegistrales{
+
+    
+}
+/*
+body {
+  background: url('../img/fotoEjecutiva.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+*/
+
+#footer{
+	background-color: white; 
+	color: black;
+	
+    width: auto;
+    font-size: 10px;
+    text-align: center;
+    
+}

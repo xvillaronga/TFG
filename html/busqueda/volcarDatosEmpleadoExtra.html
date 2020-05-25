@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	
+	<script src="../../js/bootstrap/popper.min.js"></script>
+	<script src="../../js/bootstrap/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="../../css/styles.css">
+
+	<!---<script type="text/javascript" src="../js/busqueda.js"></script>-->
+
+	<!---<script src="http://code.jquery.com/jquery-3.1.1.js"></script> -->
+	<!---<script type="text/javascript" src="../js/panelControl.js"></script>-->
+	<!---<script type="text/javascript" src="../js/cmTerritorio.js"></script>-->
+	<!---<script type="text/javascript" src="../js/AccionSindical.js"></script>-->
+	<!---<script type="text/javascript" src="../js/Organizacion.js"></script>-->
+	<!---<script type="text/javascript" src="../js/Comunicacion.js"></script>-->
+	<!---<script type="text/javascript" src="../js/CuadrosAnaliticos.js"></script>-->
+	<!---<script type="text/javascript" src="../js/notaGastos.js"></script>-->
+
+	<script src="../../js/sweetalert/sweetalert2.all.min.js"></script>
+		
+	<script src="../../js/polyfill/datalist-polyfill.min.js"></script>	
+
+
+	<style>
+		
+		#chart-container {
+				width: 640px;
+				height: auto;
+				
+			}
+			
+	</style>
+
+	 
+
+	
+	<title>Base de Datos</title>
+	
+    </head>
+    <body id="bob">
+
+    	<div class='container'>
+
+    		<div class="row justify-content-between">
+
+					
+					<div class="col-12 col-sm-12 col-md-8 col-lg-4" id="logo">
+						
+				 	 			 <img class="img-fluid" src="../../img/logo.png" alt="logo">	
+				  			
+
+					</div>
+
+					
+					<div class="col-12 col-sm-12 col-md-8 col-lg-4" id="cierre">
+
+							<div class="row justify-content-end">	
+				 	 			 <button type="button" id='cerrando' class="btn btn-danger btn-xs">
+								     X
+								 </button>	
+							</div>
+				  			
+					</div>
+					
+
+					
+			</div>
+
+			<div class="row justify-content-center" id="finger">
+				<h1 style="color: #DC143C">DATOS EMPLEADO/A </h1>
+			</div>
+
+			<div class="row justify-content-center" id="cos">
+
+				
+			</div>
+
+			<div class="row justify-content-center" id="boletin">
+
+				
+			</div>
+	    </div>
+
+
+
+
+
+
+
+
+    </body>
+	
+	 <script src="../../js/polyfill/datalist-polyfill.min.js"></script>	
+	
+	<script>
+
+    	
+
+    	$(document).ready(function(){
+
+    			var valor = localStorage.getItem('usuarioExtra');
+
+
+			    //alert("llegada: "+valor);
+
+			    $("#cerrando").click(function(){
+
+			    		window.close();
+			    });
+			    
+			    $.post("../../php/busqueda/volcarDatosEmpleado.php",{usuario: valor}, function (res) {
+							  
+			    	$("#cos").html(res); 
+
+			  		 /************IMPRIMIR BOLETIN AFILIACION**********/
+
+					    $("#imprimirBA").click(function(){
+						
+										window.open("../../php/busqueda/boletinAfiliacionRelleno.php?var="+valor, '_blank');			
+												
+		
+								  
+		
+						});
+		           						
+
+				               	
+
+				    /************ FIN IMPRIMIR BOLETIN AFILIACION**********/
+
+				    /************ALTA VISITA EMPLEADO**********/
+
+				               	$("#altaDatosVisitaEmpleado").hide();
+
+				               	$("#altaVisitaEmpleado").click(function(){
+
+				               		$("#altaDatosVisitaEmpleado").toggle();
+				               		
+
+				               	});	
+
+				               	$("#grabarVisitaEmpleado").click(function(){
+
+				               		var numEmp= $("#numeroEmpleadoVisita").html();
+				               		var fech= $("#fechaVisita").val();
+				               		var ges1=$("#gestor1").val();
+				               		var ges2=$("#gestor2").val();
+				               		var coment=$("#comentariosVisita").val();
+				               		
+				               		if((fech=='')||(ges1=='')){
+
+				               			//alert("FALTAN CAMPOS POR RELLENAR");
+
+				               			swal({
+				                                 title: 'FALTAN CAMPOS POR RELLENAR',
+				                                                         
+				                                  type: 'warning',
+				                                                          
+				                                  confirmButtonColor: '#3085d6',
+				                                                          
+				                                  position: 'top',
+
+				                        }); 
+				               		}
+				               		else{
+				               			$.post("../../php/busqueda/grabarVisitaEmpleado.php",{numeroEmpleadoVisita: numEmp, fecha: fech, gestor1: ges1, gestor2: ges2, comentarios: coment},function(res){
+
+				               				//alert(res);
+											/*
+				               				swal({
+				                                 title: res,
+				                                                         
+				                                  type: 'success',
+				                                                          
+				                                  confirmButtonColor: '#3085d6',
+				                                                          
+				                                  position: 'top',
+
+				                        	});
+											*/
+				                        	//$("#altaDatosVisitaEmpleado").toggle();
+
+											//setTimeout($("#altaDatosVisitaEmpleado").toggle(),5000); // 3000ms = 3s
+
+											//location.reload();
+
+											let timerInterval
+													swal({
+													title: res,
+													//html: 'Tiempo restante: <strong></strong> segundos.',
+													html: 'Actualizando la base de datos',
+													timer: 2000,
+													onOpen: () => {
+														swal.showLoading()
+														timerInterval = setInterval(() => {
+														swal.getContent().querySelector('strong')
+															.textContent = swal.getTimerLeft()
+														}, 10)
+													},
+													onClose: () => {
+														clearInterval(timerInterval)
+													}
+													}).then((result) => {
+													if (
+														// Read more about handling dismissals
+														result.dismiss === swal.DismissReason.timer
+													) {
+														//console.log('I was closed by the timer')
+														location.reload()
+													}
+											});
+											
+											
+				               			});
+
+				               		};
+				               		
+				               		
+									
+				               	});	
+
+
+				               	/************FIN ALTA VISITA EMEPLADO**********/
+
+				               		/************CONSULTA VISITA EMPLEADO**********/
+
+				               	$("#consultaDatosVisitaEmpleado").hide();
+
+				               	$("#consultaVisitaEmpleado").click(function(){
+
+				               		
+				               		$("#consultaDatosVisitaEmpleado").toggle();
+
+				               	});	
+
+				               	$(".botonEliminarVisita").click(function(){
+               							var posicion= $(this).attr("id");
+               							
+               							//var r = confirm("VAS A ELIMINAR LA VISITA Nº "+posicion+".\n\n¿ESTAS SEGURO/A?");
+
+
+               							const swalWithBootstrapButtons = swal.mixin({
+			                                    confirmButtonClass: 'btn btn-success btn-lg',
+			                                    cancelButtonClass: 'btn btn-danger btn-lg',
+			                                    buttonsStyling: false,
+			                                  })
+
+			                                  swalWithBootstrapButtons({
+			                                    title: 'VAS A ELIMINAR LA VISITA Nº '+posicion,
+			                                    text: "¿ESTAS SEGURO/A?",
+			                                    type: 'question',
+			                                    position: 'top',
+			                                    showCancelButton: true,
+			                                    confirmButtonText: '  Si  ',
+			                                    cancelButtonText: '  No  ',
+			                                    reverseButtons: false
+			                                  }).then((result) => {
+			                                    if (result.value) {
+
+				                                      var numTd=$("td").length;
+
+													for(var n=0;n<numTd;n++){
+											
+														if (($("td").eq(n).text())==posicion){
+
+															$("td").eq(n).parent().empty();			
+
+															break;
+														}
+
+												}
+													
+												$.post("../../php/busqueda/eliminarVisitaEmpleado.php", {posi: posicion},function(res){
+													//alert(res);
+
+													swal({
+						                                 title: res,
+						                                                         
+						                                  type: 'success',
+						                                                          
+						                                  confirmButtonColor: '#3085d6',
+						                                                          
+						                                  position: 'top',
+
+						                        	});
+												});	    
+
+
+
+
+
+			                                      
+			                                    } else if (
+			                                      // Read more about handling dismissals
+			                                      result.dismiss === swal.DismissReason.cancel
+			                                    ) {
+
+					                                     	 swal({
+						                                 title: 'ELIMINACION CANCELADA',
+						                                                         
+						                                  type: 'error',
+						                                                          
+						                                  confirmButtonColor: '#3085d6',
+						                                                          
+						                                  position: 'top',
+
+						                        		});
+
+			                                    }
+			                            })
+
+
+
+               					});	
+				               	/************FIN CONSULTA VISITA EMEPLADO**********/
+							    
+				});
+				
+		});
+
+		
+
+
+    </script>
+
+   <script src="../../js/polyfill/datalist-polyfill.min.js"></script>	
+
+   
+    
+<!--
+	<script>
+
+		document.getElementById('altaDatosVisitaEmpleado').style.visibility="hidden";
+		document.getElementById('formularioAltaVisita').style.visibility="hidden";
+		document.getElementById('consultaDatosVisitaEmpleado').style.visibility="hidden";
+
+		document.getElementById('altaVisitaEmpleado').onclick = function(){
+    			//document.getElementById('altaDatosVisitaEmpleado').style.visibility="visible";
+
+    			if (document.getElementById('formularioAltaVisita').style.visibility=="visible"){
+
+    				document.getElementById('altaDatosVisitaEmpleado').style.visibility="hidden";
+    				document.getElementById('altaDatosVisitaEmpleado').style.display="none";
+
+    				document.getElementById('formularioAltaVisita').style.visibility="hidden";
+    				document.getElementById('formularioAltaVisita').style.displat="none";
+
+    			}else{
+
+    				document.getElementById('altaDatosVisitaEmpleado').style.visibility="visible";
+    				document.getElementById('altaDatosVisitaEmpleado').style.display="block";
+
+    				document.getElementById('formularioAltaVisita').style.visibility="visible";
+    				document.getElementById('altaDatosVisitaEmpleado').style.display="block";
+
+    			};
+				
+		}
+
+		document.getElementById('consultaVisitaEmpleado').onclick = function(){
+    			
+
+    			if (document.getElementById('consultaDatosVisitaEmpleado').style.visibility=="visible"){
+
+    				document.getElementById('consultaDatosVisitaEmpleado').style.visibility="hidden";
+
+
+    			}else{
+    				document.getElementById('consultaDatosVisitaEmpleado').style.visibility="visible";
+    			};
+				
+		}
+
+
+		document.getElementById('imprimirBA').onclick = function(){
+
+
+
+		}
+
+
+								$("#imprimirBA").click(function(){
+
+				               			$.post("../php/boletinAfiliacionRelleno.php",{usuario: idEmpleado},function(res){
+		              
+		           
+				               					$("#boletin").html(res); 
+				               					$("#boletin").hide();
+				               					
+				               					imprSelec('boletin');
+
+				               					function imprSelec(nombre) {
+												  var ficha = document.getElementById(nombre);
+												  var ventimp = window.open(' ', 'popimpr');
+
+												  ventimp.document.write( ficha.innerHTML );
+												  ventimp.document.close();
+												  ventimp.print( );
+												  ventimp.close();
+
+												
+												}
+												
+												
+				   
+		           						});
+
+				               	});
+
+
+
+
+
+
+
+	</script>
+-->
+	
+</html>

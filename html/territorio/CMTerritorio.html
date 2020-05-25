@@ -1,0 +1,319 @@
+	<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+	<script src="../../js/bootstrap/popper.min.js"></script>
+	<script src="../../js/bootstrap/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="../../css/styles.css">
+	<!---<script src="http://code.jquery.com/jquery-3.1.1.js"></script> -->
+	<script type="text/javascript" src="../../js/panelControl.js"></script>
+	<script type="text/javascript" src="../../js/busqueda.js"></script>
+	<script type="text/javascript" src="../../js/cmTerritorio.js"></script>
+
+	<style>
+		
+		.row > div {
+			
+			background: white;
+			margin:10px 0;
+		}
+
+		
+		
+	</style>
+
+	
+	<title>Base de Datos</title>
+
+	<!--FORZAR A NO GUARDAR CACHHE--->
+	<meta http-equiv="Expires" content="0">
+	
+	<meta http-equiv="Last-Modified" content="0">
+	
+	<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+	
+	<meta http-equiv="Pragma" content="no-cache">
+<!--FIN FORZAR A NO GUARDAR CACHHE--->	
+	
+    </head>
+    <body>
+    
+
+<div class="container">
+		
+		<div class="row justify-content-center" id="finger">
+				<h1 style="color: #DC143C">Cuadro de Mando Coordinadores Territoriales </h1>
+		</div>
+
+		<div class="row mt-3">
+			<div class="col">
+				<div id="acordion" role="tablist" aria-multiselectable="true">
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading1">
+							<h5 class="mb-0">
+								<a href="#collapse2" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse2">
+									Documentación Básica
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2">
+							<div class="card-body">
+								
+								<ol>
+									<li> <a href="#" onClick="window.open('../../pdf/ET.pdf', '_blank')">ESTATUTO DE LOS TRABAJADORES/AS</a></li>
+									<li> <a href="#" onClick="window.open('../../pdf/LOLS.pdf', '_blank')">LEY ORGANICA DE LIBERTAD SINDICAL</a></li>
+									<li> <a href="#" onClick="window.open('../../pdf/LPRL.pdf', '_blank')">LEY DE PREVENCION DE RIESGOS LABORALES</a></li>
+									<li> <a href="#" onClick="window.open('../../pdf/BASES COTIZACION.pdf', '_blank')">BASES DE COTIZACION</a></li>
+									<li> <a href="#" onClick="window.open('../../pdf/SALARIO MINIMO.pdf', '_blank')">SALARIO MINIMO</a></li>
+									
+									
+
+								</ol>
+								<!--
+								<button type="button" id="chuletilla" class="btn btn-danger" onclick="window.open('../pdf/Chuletilla.pdf')" />Chuletilla Laboral</button>
+      							
+								-->
+							</div>
+						</div>
+					</div>
+
+				<!--
+					<div class="card">
+						<div class="card-header" role="tab" id="heading0">
+							<h5 class="mb-0">
+								<a href="#collapse0" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse0">
+									Afiliados por Coordinador
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse0" class="collapse" role="tabpanel" aria-labelledby="heading0">
+							<div class="card-body">
+								<div class="row " id="afiliadosPorCoordinador">
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading5">
+							<h5 class="mb-0">
+								<a href="#collapse5" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse5">
+									Oficinas por Coordinador
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5">
+							<div class="card-body">
+								<div class="row " id="oficinasPorCoordinador">
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				-->
+					<div class="card">
+						<div class="card-header" role="tab" id="heading1">
+							<h5 class="mb-0">
+								<a href="#collapse1" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse1">
+									Censo por Figuras y Sexo
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1">
+							<div class="card-body">
+								<div class="row " id="censoPorFiguras">
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading8">
+							<h5 class="mb-0">
+								<a href="#collapse8" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse8">
+									Tu Censo
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse8" class="collapse" role="tabpanel" aria-labelledby="heading8">
+							<div class="card-body">
+
+								<div class="container">
+									
+	
+									<div class='row align-items-center'>
+										<div class='col'>
+							
+
+									 <!--<input type='text' name='filtroProvincia' id='filtroProvincia' placeholder='Provincia'/>-->
+
+												  <select name="ordenaCenso" id="ordenaCenso" class="form-control">
+													<option value='selecciona' disabled selected>Selecciona como quieres ordenar</option>
+													
+													<option value='NUmeroOficina'>Oficina</option>
+													<option value='CategoriaProfesional' >Categoria Profesional</option>
+													<option value='FechaNacimiento' >Fecha Nacimiento</option>
+													<option value='Provincia'>Provincia</option>
+													<option value='Sociedad' >Sociedad</option>
+													
+													
+												</select>
+										</div>
+										<div class='col'> 
+
+													 <button type='button' id='botonOrdenaCenso' class='btn btn-primary'/>Ordenar</button>
+
+													 
+												
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row " id="tuCenso">
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading6">
+							<h5 class="mb-0">
+								<a href="#collapse6" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse6">
+									Tus Afiliados
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse6" class="collapse" role="tabpanel" aria-labelledby="heading6">
+							<div class="card-body">
+
+								<div class="container">
+									
+	
+									<div class='row align-items-center'>
+										<div class='col'>
+							
+
+									 <!--<input type='text' name='filtroProvincia' id='filtroProvincia' placeholder='Provincia'/>-->
+
+												  <select name="ordenaAfiliados" id="ordenaAfiliados" class="form-control">
+													<option value='selecciona' disabled selected>Selecciona como quieres ordenar</option>
+													
+													<option value='NUmeroOficina'>Oficina</option>
+													<option value='FechaAfiliacion' >Fecha Afiliacion</option>
+													<option value='Provincia'>Provincia</option>
+													<option value='Sociedad' >Sociedad</option>
+													
+													
+												</select>
+										</div>
+										<div class='col'> 
+
+													 <button type='button' id='botonOrdenaAfiliados' class='btn btn-primary'/>Ordenar</button>
+
+													 
+												
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row " id="tusAfiliados">
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading7">
+							<h5 class="mb-0">
+								<a href="#collapse7" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse7">
+									Tus Oficinas
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse7" class="collapse" role="tabpanel" aria-labelledby="heading7">
+							<div class="card-body">
+								<div class="row " id="tusOficinas">
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+
+										
+					<div class="card">
+						<div class="card-header" role="tab" id="heading4">
+							<h5 class="mb-0">
+								<a href="#collapse4" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse4">
+									Tus Zonas de sombras ( oficinas con afiliación < 25% )
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4">
+							<div class="card-body">
+								<div class="row " id="tusZonasSombras">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				
+					
+
+					<div class="card">
+						<div class="card-header" role="tab" id="heading3">
+							<h5 class="mb-0">
+								<a href="#collapse3" data-toggle="collapse" data-parent="#acordion" aria-expanded="true" aria-controls="collapse3">
+									Tus Bajas de Afiliación
+								</a>
+							</h5>
+						</div>
+
+						<div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3">
+							<div class="card-body">
+								<div class="row " id="tusBajas">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+    </body>
+</html>
